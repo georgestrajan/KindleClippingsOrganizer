@@ -124,6 +124,7 @@ public class kcOrganizer {
                 sb.append("_");
             }
         }
+        sb.append(".txt");
         return sb.toString();
     }
 
