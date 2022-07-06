@@ -6,7 +6,8 @@ import java.util.Map;
 
 public class kcOrganizer {
 
-    private static final String HIGHLIGHT_START = "- Highlight";
+    private static final String HIGHLIGHT_START = "Highlight";
+    private static final String OTHER_HIGHLIGHT_START = "Your Highlight";
     private static final String DELIM = "==========";
 
     private static final String BOOKS_FOLDER = "Books";
@@ -40,15 +41,16 @@ public class kcOrganizer {
             String line, prevLine = null;
             while ( (line = br.readLine()) != null ) {
 
-                // for some reason the Kindle starts the file with a character we cannot read
-                if (firstLine) {
+                if (line.length() > 1 && (line.substring(0, 1).toCharArray()[0] < '0'
+                        || line.substring(0, 1).toCharArray()[0] > 'Z')) {
                     line = line.substring(1);
-                    firstLine = false;
                 }
+                line = line.trim();
 
                 if (prevLine != null &&
                         line != null &&
-                        line.startsWith(HIGHLIGHT_START)) {
+                        line.startsWith(HIGHLIGHT_START)
+                        || line.startsWith(OTHER_HIGHLIGHT_START)) {
 
                     StringBuilder notes = new StringBuilder();
 
